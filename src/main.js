@@ -2,12 +2,12 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
-import routes from './router'
+import routes from './router/route'
 // 框架
 
 // 样式
 import "./style/common.css"
-
+import "./assets/fonts/iconfont.css"
 //工具
 import '@/util/rem' //适配
 // 路由配置

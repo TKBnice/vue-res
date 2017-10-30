@@ -5,7 +5,7 @@
         <div class="main">
             <input type="text" name="userName" placeholder="帐号" />
             <input type="text" name="userPassword" placeholder="密码" />
-            <input type="button" value="登录" class="login" />
+            <input type="button" value="登录" class="login" @click="login" />l
             <p>
                 <a href="">注册账户</a>
                 <span>|</span>
@@ -27,11 +27,15 @@ export default {
             userName: "admin",
             userPassword: "",
         }
+    },
+    methods: {
+        login() {
+            this.$router.push({ path: '/footer' })
+        }
     }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h1 {
     font-weight: normal;
@@ -106,15 +110,17 @@ a {
 .main p a:last-child {
     color: #9B9B9B;
 }
-.main p span{
+
+.main p span {
     padding: 0 0.875rem;
 }
+
 .footer {
     width: 75%;
-    position: absolute;  
+    position: absolute;
     bottom: 0.625rem;
-    left: 50%; 
-    margin-left: -37.5%;  
+    left: 50%;
+    margin-left: -37.5%;
     text-align: center;
     font-size: 0.875rem;
     display: flex;
@@ -126,8 +132,8 @@ a {
     color: #9B9B9B;
     flex: 1;
 }
+
 .footer span {
     flex: 1;
-
 }
 </style>
