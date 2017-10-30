@@ -1,12 +1,12 @@
 <template>
     <div class="hello">
-        <div>x</div>
+        <div class="close">x</div>
         <h1>欢迎来到这里</h1>
         <div class="main">
-            <input type="text" name="userName" />
-            <input type="text" name="userPassword" />
-            <input type="button" value="登录" class="login"/>
-            <p class="text">
+            <input type="text" name="userName" placeholder="帐号" />
+            <input type="text" name="userPassword" placeholder="密码" />
+            <input type="button" value="登录" class="login" />
+            <p>
                 <a href="">注册账户</a>
                 <span>|</span>
                 <a href="">忘记密码</a>
@@ -14,6 +14,7 @@
         </div>
         <div class="footer">
             <a href="">微博登陆</a>
+            <span>|</span>
             <a href="">微信登陆</a>
         </div>
     </div>
@@ -34,58 +35,99 @@ export default {
 <style scoped>
 h1 {
     font-weight: normal;
-    color: #1c945e;
-    text-align:center;
-    margin-top: 60px;
+    color: #41BE56;
+    text-align: center;
+    margin-top: 3.75rem;
+    font-size: 2rem;
 }
+
 a {
-    color: #42b983;
-    text-decoration:none;
+    display: inline-block;
+    color: #41BE56;
+    text-decoration: none;
 }
-.hello{
+
+.hello {
     height: 100%;
     width: 100%;
     position: relative;
     top: 0;
     left: 0;
+    overflow: hidden;
 }
-.main{
-    padding: 10px 0;
+
+.hello .close {
+    width: 1.875rem;
+    height: 1.875rem;
+    line-height: 1.875rem;
+    text-align: center;
+    display: inline-block;
+    font-size: 1.25rem;
+}
+
+.main {
+    padding: 0.625rem 0;
     width: 100%;
     overflow: hidden;
-    background-color: skyblue;
 }
-.main input{
+
+.main input {
     display: block;
-    font-size: 20px;
-    width: 90%;
-    height: 40px;
+    font-size: 0.875rem;
+    width: 94%;
+    height: 2.5rem;
     margin: 0 auto;
-    -webkit-tap-highlight-color:transparent;
-    border:none;
-    outline:none;
+    padding: 0.625rem;
+    -webkit-tap-highlight-color: transparent;
+    border: 1px solid rgba(128, 128, 128, 0.38);
+    outline: none;
+    border-radius: 3px;
+    box-sizing: border-box;
 }
-.main input:first-child{
-    margin-top: 20px;
+
+.main input:first-child {
+    margin-top: 1.25rem;
+    border-bottom: none;
 }
-.main input:nth-child(3){
-    background-color: #1c945e;
-    margin-top:20px;
+
+.main input:nth-child(3) {
+    background-color: #41BE56;
+    margin-top: 1.25rem;
     color: #fff;
 }
-.main p{
-    height: 50px;
-    margin:0 auto;
-    text-align:center;
-    margin-top:20px;
-    font-size: 14px;
+
+.main p {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 1.25rem;
+    font-size: 0.875rem;
 }
-.main p a:last-child{
-    color: gray;
+
+.main p a:last-child {
+    color: #9B9B9B;
 }
-.footer{
-    position: relative;
-    bottom:0;
-    left: 50%;
+.main p span{
+    padding: 0 0.875rem;
+}
+.footer {
+    width: 75%;
+    position: absolute;  
+    bottom: 0.625rem;
+    left: 50%; 
+    margin-left: -37.5%;  
+    text-align: center;
+    font-size: 0.875rem;
+    display: flex;
+}
+
+.footer a {
+    display: inline-block;
+    text-align: center;
+    color: #9B9B9B;
+    flex: 1;
+}
+.footer span {
+    flex: 1;
+
 }
 </style>
