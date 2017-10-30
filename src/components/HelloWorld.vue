@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-
+      {{msg}}
+  <input type="text" v-model="msg">
   </div>
 </template>
 

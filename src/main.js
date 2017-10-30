@@ -3,17 +3,19 @@
 import Vue from 'vue';
 import App from './App';
 import VueRouter from 'vue-router';
-import routers from './router';
+import routes from './router';
+//框架
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+
 Vue.use(VueRouter);
 Vue.use(iView);
 
 // 路由配置
-const RouterConfig = {
-    routes
-};
-const router = new VueRouter(RouterConfig);
+console.log(routes)
+const router = new VueRouter({
+  routes
+});
 
 Vue.config.productionTip = false
 
@@ -24,3 +26,7 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+// vue-resource vue-router
+// npm uninstall --save-dev autoprefixer
+// npm uninstall --save-dev vue-resource
+// phantomjs-prebuilt karma-phantomjs-launcher vue-router vue-resource 
