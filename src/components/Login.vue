@@ -30,7 +30,7 @@ export default {
     },
     methods: {
         login() {
-            this.$router.push({ path: '/footer' })
+            this.$router.push({ path: '/home' })
         }
     }
 }
@@ -66,7 +66,7 @@ a {
     line-height: 1.875rem;
     text-align: center;
     display: inline-block;
-    font-size: 1.25rem;
+    font-size: 0.875rem;
 }
 
 .main {

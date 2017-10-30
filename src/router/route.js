@@ -14,7 +14,7 @@ const router = [
         children: [
             {
                 path: '/',
-                component: Login,
+                component: Home,
             },
             {
                 path: '/footer',
@@ -32,13 +32,17 @@ const router = [
                 path: '/radio',
                 component: Radio
             },
-                        {
+            {
                 path: '/circle',
                 component: Circle
             },
-                        {
+            {
                 path: '/mine',
                 component: Mine
+            },
+            {
+                path: '/login',
+                component: Login
             }
         ]
 

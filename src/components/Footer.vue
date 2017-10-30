@@ -2,7 +2,7 @@
     <footer class="tabbar">
         <ul class="tabbar-box">
             <li class="tabbar-item" v-for="(item,index) in list" :key="index+'li'">
-                <router-link :class="{active:item.path == $route.path}" :to="item.path" >
+                <router-link :class="{active:item.path == $route.path}" :to="item.path">
                     <span class="icon iconfont" :class="item.icon"></span>
                     <span class="tabbar-label">{{item.title}}</span>
                 </router-link>
@@ -52,7 +52,7 @@ export default {
     position: fixed;
     bottom: 0;
     left: 0;
-    height: 55px;
+    height: 3.5rem;
     width: 100%;
     z-index: 10;
     /* background-color: #f6f6f7; */
@@ -64,8 +64,8 @@ export default {
     display: -webkit-flex;
     display: flex;
     box-sizing: border-box;
-    height: 55px;
-    line-height: 55px;
+    height: 3.5rem;
+    line-height: 3.5rem;
     overflow: hidden;
 }
 
@@ -82,15 +82,15 @@ export default {
 
 .tabbar .tabbar-box .tabbar-item .icon {
     display: block;
-    height: 35px;
-    font-size: 28px;
-    line-height: 42px;
+    height: 2.25rem;
+    font-size: 1.625rem;
+    line-height: 2.625rem;
 }
 
 .tabbar .tabbar-box .tabbar-item .tabbar-label {
-    height: 20px;
-    line-height: 20px;
+    height: 1.25rem;
+    line-height: 1.25rem;
     display: block;
-    font-size: 12px;
+    font-size: 0.875rem;
 }
 </style>
