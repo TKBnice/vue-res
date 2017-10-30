@@ -7,6 +7,4 @@ const router = [
     component: HelloWorld
   }
 ]
-
-
 export default router
