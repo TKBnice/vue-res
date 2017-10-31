@@ -1,6 +1,6 @@
 <template>
     <div class="hello">
-        <div class="close">x</div>
+        <div class="close" @click="close">x</div>
         <h1>欢迎来到这里</h1>
         <div class="main">
             <input type="text" name="userName" placeholder="帐号" />
@@ -30,6 +30,9 @@ export default {
     },
     methods: {
         login() {
+            this.$router.push({ path: '/home' })
+        },
+        close(){
             this.$router.push({ path: '/home' })
         }
     }
@@ -85,16 +88,19 @@ a {
     -webkit-tap-highlight-color: transparent;
     border: 1px solid rgba(128, 128, 128, 0.38);
     outline: none;
-    border-radius: 3px;
     box-sizing: border-box;
 }
 
 .main input:first-child {
     margin-top: 1.25rem;
     border-bottom: none;
+    border-radius: 5px 5px 0 0;
 }
-
+.main input:nth-child(2){
+    border-radius: 0 0 5px 5px;
+}
 .main input:nth-child(3) {
+    border-radius: 5px;
     background-color: #41BE56;
     margin-top: 1.25rem;
     color: #fff;

@@ -55,7 +55,6 @@ export default {
     height: 3.5rem;
     width: 100%;
     z-index: 10;
-    /* background-color: #f6f6f7; */
     background-color: #fff;
     border-top: 1px solid #ddd;
 }
