@@ -9,7 +9,7 @@
         <div class="content">
             <ul class="article-list">
                 <!-- 内容列表 -->
-                <li class="article-item" v-for="(item,index) in list" :key="index+'li'">
+                <li class="article-item" v-for="(item,index) in list" :key="index">
                     <div class="article-img">
                         <div></div>
                     </div>
@@ -21,7 +21,7 @@
                             <span>{{item.title}}</span>
                         </a>
                         <span class="close" @click="toggle">...</span>
-                        <span class="close-text" v-show="isShow" @click="close_text">不感兴趣</span>
+                        <span class="close-text" v-show="isShow" @click="close_text(index)" :data-index="index" :ref="'btn'+index">不感兴趣</span>
                     </p>
                     <div v-if="index==0" class="list-nav">
                         <p class="list-nav-item" v-for="(item,index) in list_nav" :key="index+'li'">
@@ -32,12 +32,12 @@
                 </li>
             </ul>
             <!-- 摸态框 -->
-            <div class="modal">
+            <div class="modal" v-show="isShowModal">
                 <div class="modal-wrap">
                     <div class="modal-cue">
                         <p>
                             <span>不喜欢吗</span>
-                            <span>x</span>
+                            <span class="cls" @click="close_Modal">x</span>
                         </p>
                         <p>关掉此内容，不在提示</p>
                     </div>
@@ -61,22 +61,23 @@ export default {
     data() {
         return {
             isShow: false,
+            isShowModal: false,
             list: [
                 {
                     title: '作者1',
                     author: "111",
                     path: '/home',
-                    icon: 'icon-form'
+                    icon: 'icon-form',
                 },
                 {
                     title: '作者12',
                     path: '/video',
-                    icon: 'icon-process'
+                    icon: 'icon-process',
                 },
                 {
                     title: '作者13',
                     path: '/radio',
-                    icon: 'icon-bussinessman'
+                    icon: 'icon-bussinessman',
                 },
                 {
                     title: '作者14',
@@ -116,12 +117,22 @@ export default {
         login() {
             this.$router.push({ path: '/login' })
         },
-        toggle() {
-            this.isShow = !this.isShow;
-        },
-        close_text() {
-            this.isShow = !this.isShow;
+        toggle(index) {
+            // var index = 
+            console.log(this.$ref)
 
+            this.isShow = !this.isShow;
+            
+        },
+        close_text(index) {
+            
+            
+            this.isShow = !this.isShow;
+            this.isShowModal = !this.isShow;
+
+        },
+        close_Modal() {
+            this.isShowModal = !this.isShow;
         }
     }
 }
@@ -132,6 +143,12 @@ export default {
     width: 100%;
     height: 100%;
 }
+
+
+
+
+
+
 
 
 
@@ -317,6 +334,12 @@ export default {
 
 
 
+
+
+
+
+
+
 /* 摸态框 */
 
 .modal {
@@ -324,36 +347,74 @@ export default {
     height: 100%;
     background-color: rgba(128, 128, 128, 0.3);
     position: fixed;
-    top:0;
+    top: 0;
     left: 0;
     z-index: 99;
 }
 
 .modal .modal-wrap {
-    width: 300px;
-    height: 200px;
-    padding: 10px;
-    border-radius: 6px;
+    width: 18.75rem;
+    height: 12.5rem;
+    border-radius: 0.375rem;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-left: -150px;
-    margin-top: -100px;
-    background-color:#fff;
+    margin-left: -9.375rem;
+    margin-top: -6.25rem;
+    background-color: #fff;
     display: flex;
-    flex-direction:column;
-    /* overflow: hidden; */
+    flex-direction: column;
 }
-.modal .modal-wrap .modal-cue{
+
+.modal .modal-wrap .modal-cue {
+    flex: 1;
     width: 100%;
-    background-color:skyblue;
+    padding: 0.625rem 0.625rem 0 0.625rem;
+    color: #aaa;
 }
-.modal .modal-wrap .modal-content{
-    width: 100%;
-    background-color:#41be56;
+
+.modal .modal-wrap .modal-cue p {
+    height: 50%;
 }
-.modal .modal-wrap .btn{
+
+.modal .modal-wrap .modal-cue .cls {
+    float: right;
+    width: 2.5rem;
+    height: 1.25rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.modal .modal-wrap .modal-cue p:last-child {
+    font-size: 0.75rem;
+}
+
+.modal .modal-wrap .modal-content {
+    flex: 3;
     width: 100%;
-    background-color:#41be56;
+    padding: 0.625rem 0.625rem 0 0.625rem;
+    overflow: hidden;
+}
+
+.modal .modal-wrap .modal-content li {
+    float: left;
+    width: 8.4375rem;
+    height: 2.5rem;
+    box-sizing: border-box;
+    text-align: center;
+    line-height: 2.4;
+    border: 1px solid gray;
+    border-radius: 1.5625rem;
+    margin-bottom: 0.625rem;
+}
+
+.modal .modal-wrap .modal-content li:nth-child(1) {
+    margin-right: 0.625rem;
+}
+
+.modal .modal-wrap .btn {
+    flex: 1;
+    width: 100%;
+    background-color: #41be56;
 }
 </style>
