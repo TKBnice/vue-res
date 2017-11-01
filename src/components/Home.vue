@@ -8,6 +8,7 @@
         </div>
         <div class="content">
             <ul class="article-list">
+                <!-- 内容列表 -->
                 <li class="article-item" v-for="(item,index) in list" :key="index+'li'">
                     <div class="article-img">
                         <div></div>
@@ -19,7 +20,8 @@
                             <img src="../assets/author.jpg" alt="作者">
                             <span>{{item.title}}</span>
                         </a>
-
+                        <span class="close" @click="toggle">...</span>
+                        <span class="close-text" v-show="isShow" @click="close_text">不感兴趣</span>
                     </p>
                     <div v-if="index==0" class="list-nav">
                         <p class="list-nav-item" v-for="(item,index) in list_nav" :key="index+'li'">
@@ -28,8 +30,25 @@
                         </p>
                     </div>
                 </li>
-
             </ul>
+            <!-- 摸态框 -->
+            <div class="modal">
+                <div class="modal-wrap">
+                    <div class="modal-cue">
+                        <p>
+                            <span>不喜欢吗</span>
+                            <span>x</span>
+                        </p>
+                        <p>关掉此内容，不在提示</p>
+                    </div>
+                    <ul class="modal-content">
+                        <li>不感兴趣</li>
+                        <li>内容重复</li>
+                        <li>内容质量差</li>
+                    </ul>
+                    <input type="submit" value="提交" class="btn">
+                </div>
+            </div>
         </div>
         <v-footer></v-footer>
     </div>
@@ -41,6 +60,7 @@ import Footer from '@/components/Footer'
 export default {
     data() {
         return {
+            isShow: false,
             list: [
                 {
                     title: '作者1',
@@ -95,6 +115,13 @@ export default {
     methods: {
         login() {
             this.$router.push({ path: '/login' })
+        },
+        toggle() {
+            this.isShow = !this.isShow;
+        },
+        close_text() {
+            this.isShow = !this.isShow;
+
         }
     }
 }
@@ -105,6 +132,10 @@ export default {
     width: 100%;
     height: 100%;
 }
+
+
+
+/* 搜索栏 */
 
 .search-box {
     height: 3.125rem;
@@ -157,6 +188,10 @@ export default {
     border-radius: 0.5rem;
 }
 
+
+
+/* 内容 */
+
 .content {
     margin-top: 3.125rem;
     margin-bottom: 3.875rem;
@@ -183,7 +218,7 @@ export default {
     color: #494949;
     margin-bottom: 0.375rem;
     word-wrap: break-word;
-    -webkit-line-clamp:2;
+    -webkit-line-clamp: 2;
 }
 
 .article-text {
@@ -204,12 +239,40 @@ export default {
 .article-author {
     font-size: 0.75rem;
     color: #ccc;
+    position: relative;
 }
 
 .article-author a img {
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 50%;
+}
+
+.article-author .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1.25rem;
+    width: 1.25rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.article-author .close-text {
+    width: 80px;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border: 1px solid rgba(73, 73, 73, 0.25);
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    top: 1.25rem;
+    z-index: 10;
+    color: black;
+    background-color: #fff;
+    box-shadow: 5px 5px 16px rgba(136, 136, 136, 0.55);
 }
 
 .article-img {
@@ -231,7 +294,7 @@ export default {
     display: flex;
     width: 100%;
     margin-top: 0.875rem;
-    background-color:#fff;
+    background-color: #fff;
 }
 
 .list-nav p {
@@ -250,5 +313,47 @@ export default {
     height: 2.25rem;
     font-size: 1.625rem;
     line-height: 2.625rem;
+}
+
+
+
+/* 摸态框 */
+
+.modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(128, 128, 128, 0.3);
+    position: fixed;
+    top:0;
+    left: 0;
+    z-index: 99;
+}
+
+.modal .modal-wrap {
+    width: 300px;
+    height: 200px;
+    padding: 10px;
+    border-radius: 6px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    background-color:#fff;
+    display: flex;
+    flex-direction:column;
+    /* overflow: hidden; */
+}
+.modal .modal-wrap .modal-cue{
+    width: 100%;
+    background-color:skyblue;
+}
+.modal .modal-wrap .modal-content{
+    width: 100%;
+    background-color:#41be56;
+}
+.modal .modal-wrap .btn{
+    width: 100%;
+    background-color:#41be56;
 }
 </style>
