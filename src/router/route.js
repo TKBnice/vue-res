@@ -1,5 +1,4 @@
 import Login from '@/components/Login'
-import Footer from '@/components/Footer'
 import Home from '@/components/home'
 import Video from '@/components/video'
 import Radio from '@/components/radio'
@@ -15,10 +14,6 @@ const router = [
             {
                 path: '/',
                 component: Home,
-            },
-            {
-                path: '/footer',
-                component: Footer
             },
             {
                 path: '/home',

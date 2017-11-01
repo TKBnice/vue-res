@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer'
+import Footer from '@/view/footer/Footer'
 
 export default {
     data() {

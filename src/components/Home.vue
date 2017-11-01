@@ -9,7 +9,7 @@
         <div class="content">
             <ul class="article-list">
                 <!-- 内容列表 -->
-                <li class="article-item" v-for="(item,index) in list" :key="index">
+                <li class="article-item" v-for="(item,index) in list" :key="'item'+index">
                     <div class="article-img">
                         <div></div>
                     </div>
@@ -20,8 +20,8 @@
                             <img src="../assets/author.jpg" alt="作者">
                             <span>{{item.title}}</span>
                         </a>
-                        <span class="close" @click="toggle">...</span>
-                        <span class="close-text" v-show="isShow" @click="close_text(index)" :data-index="index" :ref="'btn'+index">不感兴趣</span>
+                        <span class="close" @click="toggle(index)">...</span>
+                        <span class="close-text" v-show="item.isShow" @click="close_text(index)">不感兴趣</span>
                     </p>
                     <div v-if="index==0" class="list-nav">
                         <p class="list-nav-item" v-for="(item,index) in list_nav" :key="index+'li'">
@@ -31,63 +31,56 @@
                     </div>
                 </li>
             </ul>
-            <!-- 摸态框 -->
-            <div class="modal" v-show="isShowModal">
-                <div class="modal-wrap">
-                    <div class="modal-cue">
-                        <p>
-                            <span>不喜欢吗</span>
-                            <span class="cls" @click="close_Modal">x</span>
-                        </p>
-                        <p>关掉此内容，不在提示</p>
-                    </div>
-                    <ul class="modal-content">
-                        <li>不感兴趣</li>
-                        <li>内容重复</li>
-                        <li>内容质量差</li>
-                    </ul>
-                    <input type="submit" value="提交" class="btn">
-                </div>
-            </div>
         </div>
+        <!-- 摸态框 -->
+        <v-modal :parentfn="aaa" ref="child"></v-modal>
         <v-footer></v-footer>
     </div>
 </template>
 
 <script>
-import Footer from '@/components/Footer'
+import Footer from '@/view/footer/Footer'
+import Modal from '@/view/modal/Modal'
 
 export default {
     data() {
         return {
-            isShow: false,
-            isShowModal: false,
             list: [
                 {
                     title: '作者1',
                     author: "111",
                     path: '/home',
                     icon: 'icon-form',
+                    index: 0,
+                    isShow: false
                 },
                 {
                     title: '作者12',
                     path: '/video',
                     icon: 'icon-process',
+                    index: 1,
+                    isShow: false
                 },
                 {
                     title: '作者13',
                     path: '/radio',
                     icon: 'icon-bussinessman',
+                    index: 2,
+                    isShow: false
                 },
                 {
                     title: '作者14',
                     path: '/circle',
-                    icon: 'icon-wxbmingxingdianpu'
+                    icon: 'icon-wxbmingxingdianpu',
+                    index: 3,
+                    isShow: false
                 },
                 {
                     title: '作者15',
                     path: '/mine',
-                    icon: 'icon-wxbzhuye'
+                    icon: 'icon-wxbzhuye',
+                    index: 4,
+                    isShow: false
                 }
             ],
             list_nav: [
@@ -106,34 +99,41 @@ export default {
                 {
                     title: "豆瓣视频",
                     icon: "icon-wxbzhuye"
+                },
+                {
+                    title: "豆瓣视频",
+                    icon: "icon-wxbzhuye"
                 }
             ]
         }
     },
     components: {
-        "v-footer": Footer
+        "v-footer": Footer,
+        "v-modal": Modal
     },
     methods: {
         login() {
             this.$router.push({ path: '/login' })
         },
         toggle(index) {
-            // var index = 
-            console.log(this.$ref)
-
-            this.isShow = !this.isShow;
-            
+            if (!this.list[index].isShow) {
+                for (var i = 0; i < this.list.length; i++) {
+                    this.list[i].isShow = false;
+                }
+                this.list[index].isShow = !this.list[index].isShow;
+            } else {
+                this.list[index].isShow = !this.list[index].isShow;
+            }
         },
         close_text(index) {
-            
-            
-            this.isShow = !this.isShow;
-            this.isShowModal = !this.isShow;
+            this.list[index].isShow = !this.list[index].isShow;
+            this.$refs.child.close_Modal();
 
         },
-        close_Modal() {
-            this.isShowModal = !this.isShow;
+        aaa: function() {
+            alert("aaa")
         }
+
     }
 }
 </script>
@@ -152,12 +152,21 @@ export default {
 
 
 
+
+
+
+
+
+
+
+
 /* 搜索栏 */
 
 .search-box {
     height: 3.125rem;
     width: 100%;
     position: fixed;
+    z-index: 10;
     top: 0;
     left: 0;
     background-color: #41be56;
@@ -204,6 +213,17 @@ export default {
     background-color: #fff;
     border-radius: 0.5rem;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -286,7 +306,7 @@ export default {
     position: absolute;
     right: 0;
     top: 1.25rem;
-    z-index: 10;
+    z-index: 9;
     color: black;
     background-color: #fff;
     box-shadow: 5px 5px 16px rgba(136, 136, 136, 0.55);
@@ -330,91 +350,5 @@ export default {
     height: 2.25rem;
     font-size: 1.625rem;
     line-height: 2.625rem;
-}
-
-
-
-
-
-
-
-
-
-/* 摸态框 */
-
-.modal {
-    width: 100%;
-    height: 100%;
-    background-color: rgba(128, 128, 128, 0.3);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 99;
-}
-
-.modal .modal-wrap {
-    width: 18.75rem;
-    height: 12.5rem;
-    border-radius: 0.375rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-left: -9.375rem;
-    margin-top: -6.25rem;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-}
-
-.modal .modal-wrap .modal-cue {
-    flex: 1;
-    width: 100%;
-    padding: 0.625rem 0.625rem 0 0.625rem;
-    color: #aaa;
-}
-
-.modal .modal-wrap .modal-cue p {
-    height: 50%;
-}
-
-.modal .modal-wrap .modal-cue .cls {
-    float: right;
-    width: 2.5rem;
-    height: 1.25rem;
-    font-size: 1rem;
-    text-align: center;
-}
-
-.modal .modal-wrap .modal-cue p:last-child {
-    font-size: 0.75rem;
-}
-
-.modal .modal-wrap .modal-content {
-    flex: 3;
-    width: 100%;
-    padding: 0.625rem 0.625rem 0 0.625rem;
-    overflow: hidden;
-}
-
-.modal .modal-wrap .modal-content li {
-    float: left;
-    width: 8.4375rem;
-    height: 2.5rem;
-    box-sizing: border-box;
-    text-align: center;
-    line-height: 2.4;
-    border: 1px solid gray;
-    border-radius: 1.5625rem;
-    margin-bottom: 0.625rem;
-}
-
-.modal .modal-wrap .modal-content li:nth-child(1) {
-    margin-right: 0.625rem;
-}
-
-.modal .modal-wrap .btn {
-    flex: 1;
-    width: 100%;
-    background-color: #41be56;
 }
 </style>
