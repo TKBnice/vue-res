@@ -7,7 +7,7 @@
 
 <script>
 
-import Footer from '@/view/footer/Footer'
+import vFooter from '@/view/footer/Footer'
 
 export default {
     data() {
