@@ -1,26 +1,23 @@
 <template>
-    <div class="home-box">
-        <div class="search-box">
-            <label class="search_img"></label>
-            <input type="search" class="search" placeholder="影视 图书 小组">
-            <span class="qr_img"></span>
-            <span class="longin_img" @click="login"></span>
-        </div>
+    <div class="home-box" @click="closeAll">
+        <!-- 搜索栏 -->
+        <v-search></v-search>
+        <!-- 内容 -->
         <div class="content">
             <ul class="article-list">
                 <!-- 内容列表 -->
                 <li class="article-item" v-for="(item,index) in list" :key="'item'+index">
-                    <div class="article-img">
+                    <div class="article-img" ref="articleitem">
                         <div></div>
                     </div>
-                    <h3 class="article-title">每年哭一次，都是为了租房</h3>
-                    <p class="article-text">我扛过了压力。。。我扛过了压力我扛过了压压力我扛过了压力我扛过了压力。</p>
+                    <h3 class="article-title">你无法参与Ta的过去，但重要的是此刻Ta在你身边 ?</h3>
+                    <p class="article-text">这两天网络上展开了关于“如何避免中年油腻”的讨论。人们又列举了种种“行为规范”，劝导别人说做到了...</p>
                     <p class="article-author">
                         <a href="#">
                             <img src="../assets/author.jpg" alt="作者">
                             <span>{{item.title}}</span>
                         </a>
-                        <span class="close" @click="toggle(index)">...</span>
+                        <span class="close" @click="toggle(index)">•••</span>
                         <span class="close-text" v-show="item.isShow" @click="close_text(index)">不感兴趣</span>
                     </p>
                     <div v-if="index==0" class="list-nav">
@@ -34,13 +31,15 @@
         </div>
         <!-- 摸态框 -->
         <v-modal :parentfn="aaa" ref="child"></v-modal>
+        <!-- 底部栏 -->
         <v-footer></v-footer>
     </div>
 </template>
 
-<script>
+<script type="text/ecmascript-6">
 import Footer from '@/view/footer/Footer'
 import Modal from '@/view/modal/Modal'
+import Search from '@/view/search/Search'
 
 export default {
     data() {
@@ -52,6 +51,7 @@ export default {
                     path: '/home',
                     icon: 'icon-form',
                     index: 0,
+                    imgUrl: "https://qnmob3.doubanio.com/img/files/file-1509460301.jpeg?imageView2/2/q/80/w/330/h/330/format/jpg",
                     isShow: false
                 },
                 {
@@ -59,6 +59,7 @@ export default {
                     path: '/video',
                     icon: 'icon-process',
                     index: 1,
+                    imgUrl: "https://img3.doubanio.com/view/note/sqs/public/p46290460.jpg",
                     isShow: false
                 },
                 {
@@ -66,12 +67,14 @@ export default {
                     path: '/radio',
                     icon: 'icon-bussinessman',
                     index: 2,
+                    imgUrl: "https://img3.doubanio.com/lpic/s29563550.jpg",
                     isShow: false
                 },
                 {
                     title: '作者14',
                     path: '/circle',
                     icon: 'icon-wxbmingxingdianpu',
+                    imgUrl: "https://qnmob3.doubanio.com/img/files/file-1509438208.jpg?imageView2/2/q/80/w/330/h/330/format/jpg",
                     index: 3,
                     isShow: false
                 },
@@ -79,6 +82,7 @@ export default {
                     title: '作者15',
                     path: '/mine',
                     icon: 'icon-wxbzhuye',
+                    imgUrl: "https://img3.doubanio.com/view/note/sqs/public/p46198205.jpg",
                     index: 4,
                     isShow: false
                 }
@@ -109,13 +113,24 @@ export default {
     },
     components: {
         "v-footer": Footer,
-        "v-modal": Modal
+        "v-modal": Modal,
+        "v-search": Search
+    },
+    mounted() {
+        //列表图片
+        for (var i = 0; i < this.list.length; i++) {
+            this.$refs.articleitem[i].style.backgroundImage = "url(" + this.list[i].imgUrl + ")";
+        }
     },
     methods: {
-        login() {
-            this.$router.push({ path: '/login' })
+        closeAll(event) {
+            for (var i = 0; i < this.list.length; i++) {
+                // this.list[i].isShow = false;
+            }
         },
         toggle(index) {
+            event.cancelBubble = true;//阻止向父级事件冒泡
+            //不感兴趣按钮
             if (!this.list[index].isShow) {
                 for (var i = 0; i < this.list.length; i++) {
                     this.list[i].isShow = false;
@@ -126,11 +141,12 @@ export default {
             }
         },
         close_text(index) {
+            //模态框
             this.list[index].isShow = !this.list[index].isShow;
             this.$refs.child.close_Modal();
 
         },
-        aaa: function() {
+        aaa: function() {//测试父传子组件函数
             alert("aaa")
         }
 
@@ -145,88 +161,6 @@ export default {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 搜索栏 */
-
-.search-box {
-    height: 3.125rem;
-    width: 100%;
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    background-color: #41be56;
-}
-
-.search-box .search_img {
-    position: absolute;
-    left: 0.875rem;
-    top: 1rem;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: url('../assets/image/search.png') no-repeat;
-    background-size: 1.25rem;
-}
-
-.search-box .qr_img {
-    position: absolute;
-    top: 1rem;
-    right: 3rem;
-    width: 1.25rem;
-    height: 1.25rem;
-    background: url('../assets/image/qr.png') no-repeat;
-    background-size: 1.25rem;
-}
-
-.search-box .longin_img {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.5rem;
-    width: 1.625rem;
-    height: 1.625rem;
-    background: url('../assets/image/login.png') no-repeat;
-    background-size: 1.625rem;
-}
-
-.search-box .search {
-    box-sizing: border-box;
-    width: 16.75rem;
-    height: 2.125rem;
-    font-size: 1rem;
-    padding: 2px 1.75rem;
-    margin-top: 0.5rem;
-    margin-left: 0.625rem;
-    background-color: #fff;
-    border-radius: 0.5rem;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 内容 */
 
 .content {
@@ -235,45 +169,48 @@ export default {
 }
 
 .article-item {
-    padding: 0.625rem 0.75rem;
     margin-bottom: 0.5rem;
     position: relative;
     color: #494949;
-    background-color: #fff;
+    background-color: #EDEDED;
 }
 
 .article-item:first-child {
-    margin-bottom: 4.625rem;
-    padding-bottom: 0.3125rem;
+    padding-bottom: 0.5rem;
 }
 
 .article-title {
+    padding: 0.625rem 0.75rem 0 0.75rem;
     text-align: justify;
     font-size: 1.0625rem;
     font-weight: 500;
     line-height: 1.41;
     color: #494949;
-    margin-bottom: 0.375rem;
+    background-color: #fff;
+    padding-bottom: 0.675rem;
     word-wrap: break-word;
     -webkit-line-clamp: 2;
 }
 
 .article-text {
+    padding: 0 0.75rem 0.375rem 0.75rem;
+    background-color: #fff;
     overflow: hidden;
     text-align: justify;
     color: #aaa;
     font-size: 0.75rem;
-    line-height: 1.5;
+    line-height: 1.6;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     /* 行数 */
     word-wrap: break-word;
     /* 换行 */
-    margin-bottom: 0.375rem;
 }
 
 .article-author {
+    background-color: #fff;
+    padding: 0 0.75rem;
     font-size: 0.75rem;
     color: #ccc;
     position: relative;
@@ -288,18 +225,15 @@ export default {
 .article-author .close {
     position: absolute;
     top: 0;
-    right: 0;
-    height: 1.25rem;
-    width: 1.25rem;
+    right: 0.75rem;
     font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
+    text-align: left;
 }
 
 .article-author .close-text {
-    width: 80px;
-    height: 32px;
-    line-height: 32px;
+    width: 5rem;
+    height: 2rem;
+    line-height: 2rem;
     text-align: center;
     border: 1px solid rgba(73, 73, 73, 0.25);
     background-color: #fff;
@@ -309,14 +243,20 @@ export default {
     z-index: 9;
     color: black;
     background-color: #fff;
-    box-shadow: 5px 5px 16px rgba(136, 136, 136, 0.55);
+    box-shadow: 0.3125rem 0.3125rem 1rem rgba(136, 136, 136, 0.55);
 }
 
 .article-img {
     position: relative;
-    background: url(https://qnmob2.doubanio.com/img/files/file-1509374286.png?imageView2/2/q/80/w/330/h/330/format/jpg) center center / cover no-repeat rgb(250, 250, 250);
-    width: 25.6%;
-    margin-left: 1.5625rem;
+    background-image: url(https://qnmob2.doubanio.com/img/files/file-1509374286.png?imageView2/2/q/80/w/330/h/330/format/jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: rgb(250, 250, 250);
+    width: 3.5rem;
+    margin-left: 1.5rem;
+    margin-top: 0.625rem;
+    margin-right: 0.625rem;
     float: right;
 }
 
@@ -325,12 +265,11 @@ export default {
 }
 
 .list-nav {
-    position: absolute;
+    position: relative;
     left: 0;
-    top: 7.5rem;
+    top: 0.5rem;
     display: flex;
     width: 100%;
-    margin-top: 0.875rem;
     background-color: #fff;
 }
 
@@ -338,7 +277,6 @@ export default {
     flex: 1;
     font-size: 0.75rem;
     height: 3.75rem;
-    padding: 0 0.4375rem;
     text-align: center;
 }
 

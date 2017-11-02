@@ -36,26 +36,27 @@ export default {
                 {
                     reason: '内容质量差',
                     cue_active: false
-                },
+                }
             ]
         }
     },
-    props: {
+    props: {//子组件接收父组件方法测试
         parentfn: {
             type: Function
         }
     },
     methods: {
         close_Modal() {
+            //关闭模态框
             this.isShowModal = !this.isShowModal;
             for(var i=0;i<this.list_cue.length;i++){
                 this.list_cue[i].cue_active = false;
             }
         },
-        submit() {
+        submit() {//提交
             this.isShowModal = false;
         },
-        selected(index) {
+        selected(index) {//选择原因
             this.list_cue[index].cue_active = !this.list_cue[index].cue_active;
         },
     }
