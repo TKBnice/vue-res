@@ -43,6 +43,9 @@ export default {
     },
     components: {
         "v-search": Search
+    },
+    mounted(){
+
     }
 }
 </script>

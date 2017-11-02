@@ -39,6 +39,17 @@ export default {
     mounted() {
         this.serchText = "";
         this.cancelText = "";
+        var pathHash = window.location.hash;
+        pathHash = pathHash.substring(1)
+        if (pathHash == '/Searchpage') {
+            this.isShow = !this.isShow;
+            this.searchPlaceholder = "搜索";
+            this.serchText = "全部";
+            this.cancelText = "取消";
+            this.$router.push({ path: '/Searchpage' })
+        }else{
+
+        }
     },
     methods: {
         login() {
@@ -60,12 +71,17 @@ export default {
                 this.cancelText = "取消";
                 this.$router.push({ path: '/Searchpage' })
             } else {
-                
+
             }
 
         },
         open_list() {
+        var pathHash = window.location.hash;
+        pathHash = pathHash.substring(1)
+        if (pathHash == '/Searchpage') {
             this.openList = !this.openList;
+        }
+            
         }
     }
 }
@@ -123,6 +139,8 @@ export default {
 
 
 
+
+
 /* 切换为搜索页 start*/
 
 .search-box .search_h {
@@ -171,6 +189,8 @@ export default {
     color: #fff;
     font-weight: 500;
 }
+
+
 
 
 
