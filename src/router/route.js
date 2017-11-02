@@ -1,10 +1,10 @@
 import Login from '@/components/Login'
-import Footer from '@/components/Footer'
-import Home from '@/components/home'
-import Video from '@/components/video'
-import Radio from '@/components/radio'
-import Circle from '@/components/circle'
-import Mine from '@/components/mine'
+import Home from '@/components/Home'
+import Video from '@/components/Video'
+import Radio from '@/components/Radio'
+import Circle from '@/components/Circle'
+import Mine from '@/components/Mine'
+import Searchpage from '@/components/Searchpage'
 import App from '@/App'
 const router = [
     {
@@ -15,10 +15,6 @@ const router = [
             {
                 path: '/',
                 component: Home,
-            },
-            {
-                path: '/footer',
-                component: Footer
             },
             {
                 path: '/home',
@@ -43,6 +39,10 @@ const router = [
             {
                 path: '/login',
                 component: Login
+            },
+            {
+                path: '/searchpage',
+                component: Searchpage
             }
         ]
 
