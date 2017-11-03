@@ -39,15 +39,14 @@ export default {
     mounted() {
         this.serchText = "";
         this.cancelText = "";
-        var pathHash = window.location.hash;
-        pathHash = pathHash.substring(1)
+        var pathHash = window.location.hash.substring(1);
         if (pathHash == '/Searchpage') {
             this.isShow = !this.isShow;
             this.searchPlaceholder = "搜索";
             this.serchText = "全部";
             this.cancelText = "取消";
             this.$router.push({ path: '/Searchpage' })
-        }else{
+        } else {
 
         }
     },
@@ -76,12 +75,11 @@ export default {
 
         },
         open_list() {
-        var pathHash = window.location.hash;
-        pathHash = pathHash.substring(1)
-        if (pathHash == '/Searchpage') {
-            this.openList = !this.openList;
-        }
-            
+            var pathHash = window.location.hash.substring(1);
+            if (pathHash == '/Searchpage') {
+                this.openList = !this.openList;
+            }
+
         }
     }
 }
@@ -126,7 +124,6 @@ export default {
 }
 
 .search-box input {
-    padding: relative;
     width: 16.75rem;
     height: 2.125rem;
     font-size: 1rem;
@@ -135,6 +132,7 @@ export default {
     background-color: #fff;
     border-radius: 0.5rem;
 }
+
 
 
 
@@ -189,14 +187,6 @@ export default {
     color: #fff;
     font-weight: 500;
 }
-
-
-
-
-
-
-
-
 
 
 
