@@ -5,7 +5,7 @@
         <div class="main">
             <input type="text" name="userName" placeholder="帐号" />
             <input type="text" name="userPassword" placeholder="密码" />
-            <input type="button" value="登录" class="login" @click="login" />l
+            <input type="button" value="登录" class="login" @click="login" />
             <p>
                 <a href="">注册账户</a>
                 <span>|</span>
