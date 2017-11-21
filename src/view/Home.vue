@@ -118,6 +118,7 @@ export default {
     },
     mounted() {
         //列表图片
+        // console.log()
         for (var i = 0; i < this.list.length; i++) {
             this.$refs.articleitem[i].style.backgroundImage = "url(" + this.list[i].imgUrl + ")";
         }
@@ -128,8 +129,9 @@ export default {
                 // this.list[i].isShow = false;
             }
         },
-        toggle(index) {
-            event.cancelBubble = true;//阻止向父级事件冒泡
+        toggle(index,event) {
+            
+            window.event.stopPropagation();//阻止向父级事件冒泡
             //不感兴趣按钮
             if (!this.list[index].isShow) {
                 for (var i = 0; i < this.list.length; i++) {
@@ -141,6 +143,7 @@ export default {
             }
         },
         close_text(index) {
+            window.event.stopPropagation()
             //模态框
             this.list[index].isShow = !this.list[index].isShow;
             this.$refs.child.close_Modal();

@@ -44,8 +44,29 @@ export default {
             ]
         }
     },
-    methods:{
-        
+    mounted() {
+        var pathHash = window.location.hash.substring(1);
+        // if(pathHash == '/video'){
+
+        // }
+
+        if (pathHash == '/video') {
+            // console.log(this.$route.path)
+            this.$router.push({path:'/movie'})
+        }
+    },
+    methods: {
+
+    },
+    watch: {
+        // $router() {
+            
+        //     console.log(pathHash)
+        //     if (pathHash == '/video' || '/teleplay' || '/movie' || '/read' || '/city' || '/music' || '/market') {
+        //         console.log(this.$route.path)
+        //         this.list[1].path = this.$route.path;
+        //     }
+        // }
     }
 }
 </script>

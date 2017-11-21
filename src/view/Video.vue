@@ -1,11 +1,12 @@
 <template>
     <div>
         <!-- 头部muu -->
-        <header class="menubar-box">
+        <!-- <header class="menubar-box">
             <h3>书影音</h3>
             <span class="search_img"></span>
             <span class="longin_img"></span>
-        </header>
+        </header> -->
+        <v-header></v-header>
         <!-- 内容 -->
         <div class="content">
             <!-- 内容导航 -->
@@ -30,6 +31,7 @@
 
 <script>
 import Footer from '@/view/footer/Footer'
+import Header from '@/view/header/Header'
 
 export default {
     data() {
@@ -64,7 +66,8 @@ export default {
         }
     },
     components: {
-        "v-footer": Footer
+        "v-footer": Footer,
+        "v-header": Header
     },
     mounted() {
 
@@ -151,10 +154,11 @@ export default {
     height: 100%;
     line-height: 2rem;
     text-align: center;
-    color:#8e8a8a;
+    color: #8e8a8a;
 }
-.content .content-nav ul .active{
-    color:black;
-    font-weight:600; 
+
+.content .content-nav ul .active {
+    color: black;
+    font-weight: 600;
 }
 </style>

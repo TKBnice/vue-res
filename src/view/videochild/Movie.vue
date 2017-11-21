@@ -31,9 +31,7 @@
                     <div><img src="" alt=""></div>
                     <div class="bar">
                         <p>找电影</p>
-                        <p>
-                            <span>冷门佳片 / 科幻 / 经典</span>
-                        </p>
+                        <p><span>冷门佳片 / 科幻 / 经典</span></p>
                     </div>
                     <div>></div>
                 </div>
@@ -41,7 +39,7 @@
                     <div><img src="" alt=""></div>
                     <div class="bar">
                         <p>我的应影视</p>
-                        <p>未登录</p>
+                        <p><span>未登录</span></p>
                     </div>
                     <div>></div>
                 </div>
@@ -72,10 +70,16 @@ export default {
         for (var i = 0; i < this.list.length; i++) {
             this.$refs.posterimages[i].style.backgroundImage = "url(" + this.list[i].url + ")";
         }
+        // console.log(1111)
     },
-    methods:{
-        login(){
+    methods: {
+        login() {
             this.$router.push({ path: '/login' })
+        }
+    },
+    watch: {
+        $router() {
+            console.log(1)
         }
     }
 }
@@ -110,12 +114,12 @@ export default {
 .main-section .wrap {
     width: 20rem;
     overflow: hidden;
-    height: 234px;
+    height: 244px;
 }
 
 .main-section .wrap .wrap-scroll {
     width: 20rem;
-    height: 250px;
+    height: 260px;
     overflow-x: scroll;
     overflow-y: hidden;
 }
@@ -150,7 +154,7 @@ export default {
     flex: 1;
     height: 50px;
     display: flex;
-    align-items:center
+    align-items: center
 }
 
 .main-section .title-bar .title-bar-c div {
@@ -164,6 +168,8 @@ export default {
 
 .main-section .title-bar .title-bar-c div:nth-child(2) {
     flex: 2;
+    width: 80px;
+    overflow: hidden;
 }
 
 .main-section .title-bar .title-bar-c div:last-child {
@@ -174,9 +180,11 @@ export default {
     text-align: center;
     margin: 0 auto;
 }
+
 .main-section .title-bar .title-bar-right div:last-child {
     border-right: none;
 }
+
 .main-section .title-bar .title-bar-c .bar p {
     font-size: 12px;
     width: 100%;
@@ -187,15 +195,17 @@ export default {
 
 .main-section .title-bar .title-bar-c .bar p:first-child {
     font-size: 12px;
-    font-weight: 500px;
+    font-weight: bold;
 }
 
 .main-section .title-bar .title-bar-c .bar p:last-child {
-    width: 82px;
+    overflow: hidden;
 }
 
 .main-section .title-bar .title-bar-c .bar p:last-child span {
-    display: inline-block;
-    width: 116px;
+    display: block;
+    -webkit-transform-origin-x: 0;
+    transform: scale(0.64); 
+    width: 130px;
 }
 </style>
