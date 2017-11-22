@@ -10,96 +10,33 @@
         </div>
         <div class="r-main">
             <ul class="r-main-list">
-                <li class="r-item">
+                <li class="r-item" v-show="item.isClose" v-for="(item,index) in list" :key="'list-'+index">
                     <div class="item-top">
                         <div class="author-img">
                             <div class="pd100"></div>
                         </div>
 
                         <div class="author">
-                            <p class="author">elimu</p>
+                            <p class="author-name">{{item.author_name}}</p>
                             <p class="author-fans">
-                                <span class="fans-count">66</span>关注
+                                <span class="fans-count">{{item.fans_count}}</span>关注
                             </p>
 
                         </div>
                         <button class="follow-btn">关注</button>
-                        <span class="close-item">x</span>
+                        <span class="close-item" @click="closeItem(index)">x</span>
                     </div>
 
-                    <div class="item-middle">文字文章字文章字文章字文章字文章字文章字文章 一段文 一段文 一段文 一段文 一段文 一段文 字</div>
+                    <div class="item-middle">{{item.item_text}}</div>
                     <div class="item-bottom">
-                        <span>14赞</span>
-                        <span>18留言</span>
-                    </div>
-                </li>
-                <li class="r-item">
-                    <div class="item-top">
-                        <div class="author-img">
-                            <div class="pd100"></div>
+                        <div class="icon-wrap-z">
+                            <i class="iconfont icon-iconheji-"></i>
+                            <span @click="giveLike(index)">{{item.fans_zan}}赞</span>
                         </div>
-
-                        <div class="author">
-                            <p class="author">elimu</p>
-                            <p class="author-fans">
-                                <span class="fans-count">66</span>关注
-                            </p>
-
+                        <div class="icon-wrap-p">
+                            <i class="iconfont icon-pinglun"></i>
+                            <span>{{item.fans_liuyan}}留言</span>
                         </div>
-                        <button class="follow-btn">关注</button>
-                        <span class="close-item">x</span>
-                    </div>
-
-                    <div class="item-middle">文字文章字文章字文章字文章字文章字文章字文章 一段文 一段文 一段文 一段文 一段文 一段文 字</div>
-                    <div class="item-bottom">
-                        <span>14赞</span>
-                        <span>18留言</span>
-                    </div>
-                </li>
-                <li class="r-item">
-                    <div class="item-top">
-                        <div class="author-img">
-                            <div class="pd100"></div>
-                        </div>
-
-                        <div class="author">
-                            <p class="author">elimu</p>
-                            <p class="author-fans">
-                                <span class="fans-count">66</span>关注
-                            </p>
-
-                        </div>
-                        <button class="follow-btn">关注</button>
-                        <span class="close-item">x</span>
-                    </div>
-
-                    <div class="item-middle">文字文章字文章字文章字文章字文章字文章字文章 一段文 一段文 一段文 一段文 一段文 一段文 字</div>
-                    <div class="item-bottom">
-                        <span>14赞</span>
-                        <span>18留言</span>
-                    </div>
-                </li>
-                <li class="r-item">
-                    <div class="item-top">
-                        <div class="author-img">
-                            <div class="pd100"></div>
-                        </div>
-
-                        <div class="author">
-                            <p class="author">elimu</p>
-                            <p class="author-fans">
-                                <span class="fans-count">66</span>关注
-                            </p>
-
-                        </div>
-                        <button class="follow-btn" @click="followBtn">关注</button>
-                        <span class="close-item" @click="closeItem">x</span>
-                    </div>
-
-                    <div class="item-middle">文字文章字文章字文章字文章字文章字文章字文章 一段文 一段文 一段文 一段文 一段文 一段文 字</div>
-                    <div class="item-bottom">
-                        <span>14赞</span>
-                        <span>18留言</span>
                     </div>
                 </li>
             </ul>
@@ -109,26 +46,73 @@
 </template>
 
 <script>
-import Footer from '@/view/footer/Footer'
-import Header from '@/view/header/Header'
+import Footer from '@/view/footer/Footer';
+import Header from '@/view/header/Header';
 
 
 export default {
     data() {
         return {
-            value1: 0
+            count: 0,
+            list: [
+                {
+                    isClose: true,
+                    author_name: 'elimu',
+                    fans_count: 66,
+                    item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
+                    fans_zan: 16,
+                    fans_liuyan: 120
+                },
+                {
+                    isClose: true,
+                    author_name: '东池先生',
+                    fans_count: 636,
+                    item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
+                    fans_zan: 6,
+                    fans_liuyan: 210
+                },
+                {
+                    isClose: true,
+                    author_name: '张三',
+                    fans_count: 266,
+                    item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
+                    fans_zan: 86,
+                    fans_liuyan: 202
+                },
+                {
+                    isClose: true,
+                    author_name: '李四',
+                    fans_count: 166,
+                    item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
+                    fans_zan: 56,
+                    fans_liuyan: 310
+                },
+                {
+                    isClose: true,
+                    author_name: '王五',
+                    fans_count: 676,
+                    item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
+                    fans_zan: 96,
+                    fans_liuyan: 200
+                },
+            ]
         }
     },
     components: {
         "v-footer": Footer,
         "v-header": Header
     },
-    methods:{
-        closeItem(){
-            alert('11');
+    methods: {
+        closeItem(index) {
+            this.list[index].isClose = false;
+
         },
-        followBtn(){
-           alert('11'); 
+        giveLike(index) {
+            this.count++;
+            console.log(this.count);
+            if (this.count < 2) {
+                this.list[index].fans_zan += this.count
+            }
         }
     }
 }
@@ -137,17 +121,17 @@ export default {
 <style scoped style lang="less">
 .r-header {
     width: 100%;
-    height: 40px;
-    margin-top: 76px;
+    height: 2.5rem;
+    margin-top: 4.75rem;
     background: #eee;
-    .header-text{
-        margin-left: 100px;
-        margin-top: 30px;
-        p:first-child{
+    .header-text {
+        margin-left: 6.25rem;
+        margin-top: 1.875rem;
+        p:first-child {
             font-weight: bold;
         }
-        p:last-child{
-            font-size: 12px;
+        p:last-child {
+            font-size: 0.75rem;
         }
     }
 }
@@ -157,52 +141,55 @@ export default {
     background: #fff;
     .r-main-list {
         width: 100%;
-        margin-bottom: 70px;
+        margin-bottom: 4.375rem;
         .r-item {
             width: 96%; // height: 100px;
             margin: 0 auto;
-            box-shadow: 1px 1px 5px 1px #aaa;
-            margin-top: 10px;
+            box-shadow: 1px 1px 0.3125rem 1px #aaa;
+            margin-top: 0.625rem;
             .item-top {
                 position: relative;
                 overflow: hidden;
-                padding-bottom: 8px;
+                padding-bottom: 0.5rem;
                 .author-img {
-                    width: 48px;
-                    height: 48px;
+                    width: 3rem;
+                    height: 3rem;
                     float: left;
                     background-image: url('../assets/author.jpg');
-                    background-size: 30px 30px;
+                    background-size: 1.875rem 30px;
                     background-position: center;
                     border-radius: 50%;
-                    margin: 16px 16px 0 16px;
+                    margin: 1rem 1rem 0 1rem;
 
                     div {
                         padding-top: 100%;
                     }
                 }
                 .author {
-                    font-size: 16px;
-                    margin-top: 16px;
+                    font-size: 1rem;
+                    margin-top: 1rem;
+                    .author-name {
+                        font-weight: bold;
+                    }
                     .author-fans {
-                        font-size: 12px;
+                        font-size: 0.875rem;
                     }
                 }
                 .follow-btn {
                     position: absolute;
-                    top: 24px;
-                    right: 24px;
+                    top: 1.5rem;
+                    right: 1.5rem;
                     background-color: #41BE56;
                     color: #fff;
-                    padding: 3px 8px;
-                    border-radius: 3px;
-                    font-size: 12px;
+                    padding: 0.1875rem 0.5rem;
+                    border-radius: 0.1875rem;
+                    font-size: 0.75rem;
                 }
                 .close-item {
                     display: inline-block;
-                    width:24px;
-                    height: 24px;
-                    line-height: 24px;
+                    width: 1.5rem;
+                    height: 1.5rem;
+                    line-height: 1.5rem;
                     text-align: center;
                     position: absolute;
                     top: 0px;
@@ -210,12 +197,20 @@ export default {
                 }
             }
             .item-middle {
-                margin-left: 80px;
-                font-size: 14px;
+                margin-left: 5rem;
+                font-size: 0.875rem;
             }
             .item-bottom {
-                margin-left: 80px;
-                font-size: 12px;
+                margin-left: 5rem;
+                font-size: 0.875rem;
+                overflow: hidden;
+                .icon-wrap-z {
+                    float: left;
+                }
+                .icon-wrap-p {
+                    float: left;
+                    margin-left: 0.1875rem;
+                }
             }
         }
     }

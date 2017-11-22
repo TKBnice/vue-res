@@ -116,6 +116,7 @@ export default {
 @import './video.css';
 .content {
     width: 100%;
+    margin-top: 3.5rem;
 }
 
 .content .content-nav {

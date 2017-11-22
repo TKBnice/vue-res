@@ -8,6 +8,7 @@ import routes from './router/route'
 // 样式
 import "./style/common.css"
 import "./assets/fonts/iconfont.css"
+import "./assets/font-radio/iconfont.css"
 //工具
 import '@/util/rem' //适配
 // 路由配置

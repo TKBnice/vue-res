@@ -1,6 +1,6 @@
 <template>
     <header class="menubar-box">
-        <h3>书影音</h3>
+        <h3>{{title}}</h3>
         <span class="search_img"></span>
         <span class="longin_img"></span>
     </header>
@@ -11,6 +11,7 @@
 export default {
     data() {
         return {
+            title:"书影音",
             list: [
                 {
                     title: "书影音",
@@ -39,7 +40,11 @@ export default {
         // console.log(this.$router.path)
         var pathHash = window.location.hash.substring(1);
         if(pathHash == '/radio'){
-            
+            this.title=this.list[1].title;
+        }else if(pathHash == '/circle'){
+            this.title=this.list[2].title;
+        }else if(pathHash == '/mine'){
+            this.title=this.list[3].title;
         }
     },
     methods:{
