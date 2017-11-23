@@ -29,13 +29,22 @@
             </div>
             <div class="main-bottom">
                 <ul class="classify">
-                    <li class="item" v-for="(item,index) in list" :key="item+'-index'">
+                    <li class="item" v-for="(item,index) in list" :key="item+'-index'" @click="open">
                         <i class="iconfont" :class="item.icon" v-if="index!==1"></i>
                         <p v-if="index!==1">{{item.title}}</p>
                         <span v-if="index!==1">></span>
-                        <span v-if="index==1" class="index1">暂无数据记录</span> 
+                        <span v-if="index==1" class="index1">暂无数据记录</span>
                     </li>
                 </ul>
+                <transition name="move">
+                    <ul class="side-bar-wrap" ref="sideBar" v-if="box">
+                        <li class="side-bar" id="side-bar1">
+                            <p>我是侧栏11111111111</p>
+                            <p id="close" @click="close">关闭</p>
+                        </li>
+                    </ul>
+                </transition>
+
             </div>
         </div>
         <v-footer></v-footer>
@@ -49,42 +58,43 @@ import Header from '@/view/header/Header';
 export default {
     data() {
         return {
-            list:[
+            box:false,
+            list: [
                 {
-                    icon:"icon-icon-tips",
-                    title:"提醒"
+                    icon: "icon-icon-tips",
+                    title: "提醒"
                 },
                 {
-                    icon:"",
-                    title:""
+                    icon: "",
+                    title: ""
                 },
                 {
-                    icon:"icon-xihuan-solid",
-                    title:"喜欢"
+                    icon: "icon-xihuan-solid",
+                    title: "喜欢"
                 },
                 {
-                    icon:"icon-riji",
-                    title:"日记"
+                    icon: "icon-riji",
+                    title: "日记"
                 },
                 {
-                    icon:"icon-collections",
-                    title:"相册"
+                    icon: "icon-collections",
+                    title: "相册"
                 },
                 {
-                    icon:"icon-dianying",
-                    title:"电影.电视"
+                    icon: "icon-dianying",
+                    title: "电影.电视"
                 },
                 {
-                    icon:"icon-shu",
-                    title:"读书"
+                    icon: "icon-shu",
+                    title: "读书"
                 },
                 {
-                    icon:"icon-yinyue",
-                    title:"音乐"
+                    icon: "icon-yinyue",
+                    title: "音乐"
                 },
                 {
-                    icon:"icon-qianbao",
-                    title:"钱包"
+                    icon: "icon-qianbao",
+                    title: "钱包"
                 }
             ]
         }
@@ -94,7 +104,12 @@ export default {
         "v-header": Header
     },
     methods: {
-
+        open(event) {
+            this.box = !this.box;
+        },
+        close(event) {
+            this.box = !this.box;
+        }
     }
 }
 </script>
@@ -111,27 +126,27 @@ export default {
             float: left;
             height: 5.25rem;
             line-height: 5.25rem;
-            width:25%;
+            width: 25%;
             text-align: center;
             img {
                 width: 3.75rem;
                 height: 3.75rem;
-                vertical-align:middle;
+                vertical-align: middle;
                 border-radius: 50%;
             }
         }
         .personal-info {
-            width:75%;
+            width: 75%;
             float: left;
             color: #fff;
-            .info{
-                .info-name{
+            .info {
+                .info-name {
                     margin-top: 0.75rem;
                 }
-                .info-id{
+                .info-id {
                     overflow: hidden;
                     border-bottom: 1px solid #fff;
-                    .id-count{
+                    .id-count {
                         font-size: 0.75rem;
                         float: left;
                         text-align: center;
@@ -139,65 +154,77 @@ export default {
                     .personal-homepage {
                         float: right;
                         font-size: 0.875rem;
-                        margin-right:1rem;
+                        margin-right: 1rem;
                     }
                 }
-                
             }
-            .follow-wrap{
+            .follow-wrap {
                 height: 1.5rem;
                 line-height: 1.5rem;
                 font-size: 0.875rem;
-                .be-Follow{
+                .be-Follow {
                     margin-left: 0.75rem;
                 }
             }
         }
     }
-    .main-bottom{
-        width:100%;
-        .classify{
-            
+    .main-bottom {
+        width: 100%;
+        overflow: hidden;
+        .classify {
+
             width: 100%;
             margin: 0 auto;
             box-shadow: 1px 1px 0.3125rem 1px #aaa;
             margin-top: 0.625rem;
-            .item{
+            .item {
                 background: #fff;
                 overflow: hidden;
                 color: rgba(39, 40, 34, 0.83);
-                border-bottom:1px solid rgba(39, 40, 34, 0.23);
-                .iconfont{
+                border-bottom: 1px solid rgba(39, 40, 34, 0.23);
+                .iconfont {
                     float: left;
                     height: 2.5rem;
                     width: 2.5rem;
                     line-height: 2.5rem;
                     text-align: center;
                 }
-                p{
+                p {
                     float: left;
                     height: 2.5rem;
                     line-height: 2.5rem;
                     margin-left: 0.75rem;
                     font-size: 1rem;
                 }
-                span{
+                span {
                     float: right;
-                    display: inline-block;
                     height: 2.5rem;
                     line-height: 2.5rem;
                     margin-right: 0.75rem;
                 }
             }
-            .item:nth-child(3n){
+            .item:nth-child(3n) {
                 margin-top: 0.75rem;
             }
-            .item:nth-child(1) .iconfont,.item:nth-child(7) .iconfont{color:#41BE56}
-            .item:nth-child(3) .iconfont{color:red}
-            .item:nth-child(4) .iconfont,.item:nth-child(9) .iconfont{color:blue}
-            .item:nth-child(5) .iconfont,.item:nth-child(6) .iconfont{color:orange}
-            .item:nth-child(8) .iconfont{color:#fd7905}
-            .index1{
+            .item:nth-child(1) .iconfont,
+            .item:nth-child(7) .iconfont {
+                color: #41BE56
+            }
+            .item:nth-child(3) .iconfont {
+                color: red
+            }
+            .item:nth-child(4) .iconfont,
+            .item:nth-child(9) .iconfont {
+                color: blue
+            }
+            .item:nth-child(5) .iconfont,
+            .item:nth-child(6) .iconfont {
+                color: orange
+            }
+            .item:nth-child(8) .iconfont {
+                color: #fd7905
+            }
+            .index1 {
                 display: block;
                 width: 100%;
                 margin-right: 0;
@@ -206,6 +233,56 @@ export default {
                 line-height: 2.5rem;
             }
         }
+        .side-bar-wrap {
+            width: 100%;
+            height: 100%;
+            background: skyblue;
+            position: absolute;
+            top: 0;
+            z-index: 99;
+        }
+        .move-enter-active {
+            animation: mymove .3s;
+        }
+        .move-leave-active {
+            animation: myleave .3s;
+        }
+    }
+}
+
+@keyframes mymove {
+    from {
+        left: 100%
+    }
+    to {
+        left: 0
+    }
+}
+
+@-webkit-keyframes mymove {
+    from {
+        left: 100%
+    }
+    to {
+        left: 0
+    }
+}
+
+@keyframes myleave {
+    from {
+        left: 0
+    }
+    to {
+        left: 100%
+    }
+}
+
+@-webkit-keyframes myleave {
+    from {
+        left: 0
+    }
+    to {
+        left: 100%
     }
 }
 </style>
