@@ -3,8 +3,8 @@
         <div class="close" @click="close">x</div>
         <h1>欢迎来到这里</h1>
         <div class="main">
-            <input type="text" name="userName" placeholder="帐号" />
-            <input type="text" name="userPassword" placeholder="密码" />
+            <input type="text" name="userName" v-model="defData.username" placeholder="帐号" autocapitalize="off" auto-complete="off" />
+            <input type="password" name="userPassword" v-model="defData.userpassword" placeholder="密码" autocapitalize="off" auto-complete="off" />
             <input type="button" value="登录" class="login" @click="login" />
             <p>
                 <a href="">注册账户</a>
@@ -12,6 +12,7 @@
                 <a href="">忘记密码</a>
             </p>
         </div>
+         <p class="hint">{{errText}}</p> 
         <div class="footer">
             <a href="">微博登陆</a>
             <span>|</span>
@@ -21,21 +22,51 @@
 </template>
 
 <script>
+import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 export default {
     data() {
         return {
-            userName: "admin",
-            userPassword: "",
+            errText:"",
+            defData: {
+                username: "",
+                userpassword: ""
+            }
+
         }
     },
+    mounted() {
+        // this.funUserData({
+        //     username: "111",
+        //     userpassword: "1111"
+        // })
+        this.$store.dispatch('funUserData', {
+            username: "admin",
+            userpassword: "123456"
+        })
+    },
     methods: {
+        // ...mapActions([ // 从store上绑定的action中载入需要的到此组件中
+        //     'funUserData', // actions.js中创建funUserData方法获取数据
+        // ]),
         login() {
-            this.$router.push({ path: '/home' })
+            if (this.defData.username && this.defData.username != "" && this.defData.username === this.userData.username && this.defData.userpassword === this.defData.userpassword) {
+                this.$router.push({ path: '/home' })
+            }else{
+                this.errText = "按F12查看密码哦！";
+            }
+
         },
-        close(){
+        close() {
             this.$router.push({ path: '/home' })
         }
-    }
+    },
+    computed: {
+        ...mapGetters([ // 从store上绑定的getters中载入需要的到此组件中
+            'userData'//getters.js中创建一个名为userData的方法
+        ]),
+
+    },
 }
 </script>
 
@@ -53,7 +84,13 @@ a {
     color: #41BE56;
     text-decoration: none;
 }
-
+.hint{
+    text-align: center;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1.5rem;
+    color: red;
+}
 .hello {
     height: 100%;
     width: 100%;
@@ -96,9 +133,11 @@ a {
     border-bottom: none;
     border-radius: 5px 5px 0 0;
 }
-.main input:nth-child(2){
+
+.main input:nth-child(2) {
     border-radius: 0 0 5px 5px;
 }
+
 .main input:nth-child(3) {
     border-radius: 5px;
     background-color: #41BE56;

@@ -2,7 +2,7 @@
     <div>
         <v-header></v-header>
         <div class="main">
-            <div class="main-top">
+            <div class="main-top" @click="openHomeBar">
                 <div class="personal-img"><img src="../assets/author.jpg" alt=""></div>
                 <div class="personal-info">
                     <div class="info">
@@ -29,24 +29,46 @@
             </div>
             <div class="main-bottom">
                 <ul class="classify">
-                    <li class="item" v-for="(item,index) in list" :key="item+'-index'" @click="open">
+                    <li class="item" v-for="(item,index) in list" :key="item+'-index'" @click="open(index)">
                         <i class="iconfont" :class="item.icon" v-if="index!==1"></i>
                         <p v-if="index!==1">{{item.title}}</p>
                         <span v-if="index!==1">></span>
                         <span v-if="index==1" class="index1">暂无数据记录</span>
                     </li>
                 </ul>
-                <transition name="move">
-                    <ul class="side-bar-wrap" ref="sideBar" v-if="box">
-                        <li class="side-bar" id="side-bar1">
-                            <p>我是侧栏11111111111</p>
-                            <p id="close" @click="close">关闭</p>
-                        </li>
-                    </ul>
-                </transition>
+
+                <ul class="side-bar-wrap">
+                    <li class="side-item" v-for="(sideitem,index) in sideList" :key="sideitem+'-index'">
+                        <transition name="move">
+                            <div class="side-bar" :class="'side-bar-'+index" v-if="sideitem.box">
+                                <h1>我是侧栏{{index}}</h1>
+                                <div>
+                                    {{sideitem.article}}
+                                </div>
+                                <p id="close" @click="close(index)">关闭</p>
+                            </div>
+                        </transition>
+                    </li>
+                </ul>
 
             </div>
         </div>
+        <transition name="move">
+            <div class="personal-homepage-bar" v-if="isPersonal" ref="personalHomepageBar">
+                <h1>个人主页</h1>
+                <div>
+                    一场冷雨过后，冬天便施施然的来了。季节的更替，总是让人无端的生出一丝惆怅，流年的飞花，染指的情怀，谁又能握的住永远？只是依然感恩，那些流逝岁月里的点滴，带着微光的美好，都是生命旅途里独一的温暖。
+
+好像是到了一个年龄，不会再刻意，去维系一些会随着时间淡去的人情。骨子里甘愿着清寂后的静默，那些一旦生疏便会走失的人与事，就无须再浪费感情费力维持了。
+
+岁月会让人沉淀下来，向往一种简单，干净，温馨的氛围。
+                </div>
+                <div>
+                    <button @click="closeHomeBar">关闭</button>
+                </div>
+                
+            </div>
+        </transition>
         <v-footer></v-footer>
     </div>
 </template>
@@ -58,7 +80,7 @@ import Header from '@/view/header/Header';
 export default {
     data() {
         return {
-            box:false,
+            isPersonal: false,
             list: [
                 {
                     icon: "icon-icon-tips",
@@ -96,6 +118,45 @@ export default {
                     icon: "icon-qianbao",
                     title: "钱包"
                 }
+            ],
+            sideList: [
+                {
+                    article: "看多了世事纷纭，人情冷漠，更加珍惜那温温的情意。抵手的温暖无须绚烂，只要在相依的岁月入心即可。",
+                    box: false
+                },
+                {
+                    article: "暂无数据",
+                    box: false
+                },
+                {
+                    article: "一别同窗年少时，重逢依旧诉相思。为君感动赋新词。。",
+                    box: false
+                },
+                {
+                    article: "叶卷叶舒真自在，花开花落总相安。炎凉世态百般看。。",
+                    box: false
+                },
+                {
+                    article: "别后音容记不清，前尘往事自澄明。如今微信意诚诚。。",
+                    box: false
+                },
+                {
+                    article: "别后音容记不清，前尘往事自澄明。如今微信意诚诚。。",
+                    box: false
+                },
+                {
+                    article: "别后音容记不清，前尘往事自澄明。如今微信意诚诚。。",
+                    box: false
+                },
+                {
+                    article: "别后音容记不清，前尘往事自澄明。如今微信意诚诚。。",
+                    box: false
+                },
+                {
+                    article: "别后音容记不清，前尘往事自澄明。如今微信意诚诚。。",
+                    box: false
+                }
+
             ]
         }
     },
@@ -103,12 +164,29 @@ export default {
         "v-footer": Footer,
         "v-header": Header
     },
+    mounted() {
+
+    },
     methods: {
-        open(event) {
-            this.box = !this.box;
+        open(index) {
+            for (var i = 0; i < this.sideList.length; i++) {
+                if (index == i && i != 1) {
+                    this.sideList[index].box = !this.sideList[index].box;
+                }
+            }
         },
-        close(event) {
-            this.box = !this.box;
+        close(index) {
+            for (var i = 0; i < this.sideList.length; i++) {
+                if (index == i && i != 1) {
+                    this.sideList[index].box = !this.sideList[index].box;
+                }
+            }
+        },
+        openHomeBar() {
+            this.isPersonal = !this.isPersonal;
+        },
+        closeHomeBar() {
+            this.isPersonal = !this.isPersonal;
         }
     }
 }
@@ -235,19 +313,55 @@ export default {
         }
         .side-bar-wrap {
             width: 100%;
-            height: 100%;
-            background: skyblue;
-            position: absolute;
-            top: 0;
-            z-index: 99;
-        }
-        .move-enter-active {
-            animation: mymove .3s;
-        }
-        .move-leave-active {
-            animation: myleave .3s;
+            .side-item {
+                width: 100%;
+                height: 100%;
+                .side-bar {
+                    width: 100%;
+                    height: 100%;
+                    background: skyblue;
+                    position: fixed;
+                    top: 0;
+                    z-index: 99;
+                }
+            }
         }
     }
+}
+
+.personal-homepage-bar {
+    width: 100%;
+    height: 100%;
+    background: skyblue;
+    position: fixed;
+    top: 0;
+    z-index: 99;
+    overflow: hidden;
+    h1{
+        width:100%;
+        height: 3rem;
+        line-height: 3rem;
+        text-align: center;
+    }
+    div{
+        width: 100%;
+        text-align: center;
+        margin-top: 5rem;
+        button{
+            width: 50%;
+            height: 2rem;
+            line-height: 2rem;
+            background: #41BE56;
+        }
+    }
+}
+
+.move-enter-active {
+    animation: mymove .3s;
+}
+
+.move-leave-active {
+    animation: myleave .3s;
 }
 
 @keyframes mymove {

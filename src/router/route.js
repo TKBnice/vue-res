@@ -2,7 +2,7 @@ import Login from '@/view/Login'
 import Home from '@/view/Home'
 import Video from '@/view/Video'
 import Radio from '@/view/Radio'
-import Circle from '@/view/Circle'
+import Circle from '@/view/Circle' // vuex引入circle组件
 import Mine from '@/view/Mine'
 import Searchpage from '@/view/Searchpage'
 import App from '@/App'

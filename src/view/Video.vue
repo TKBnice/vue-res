@@ -1,11 +1,5 @@
 <template>
     <div>
-        <!-- 头部muu -->
-        <!-- <header class="menubar-box">
-            <h3>书影音</h3>
-            <span class="search_img"></span>
-            <span class="longin_img"></span>
-        </header> -->
         <v-header></v-header>
         <!-- 内容 -->
         <div class="content">
@@ -23,7 +17,9 @@
                 </div>
             </div>
             <!-- 子路由视图-->
-            <router-view></router-view>
+            <keep-alive>
+                <router-view></router-view>
+            </keep-alive>
         </div>
         <v-footer></v-footer>
     </div>
@@ -116,7 +112,8 @@ export default {
 @import './video.css';
 .content {
     width: 100%;
-    margin-top: 3.5rem;
+    position: relative;
+    top: 3.5rem;
 }
 
 .content .content-nav {
