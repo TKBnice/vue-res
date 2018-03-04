@@ -2,7 +2,14 @@
     <div>
         <v-header></v-header>
         <div class="content">
-            <h1>圈子</h1>
+            <div class="weather">
+                <p class="position">{{position}}<span>{{time}}更新</span></p>
+                <p class="temperature">{{temp}} <span>°</span></p>
+                <p class="windPower">{{wind_direction}}<{{wind_strength}}</p>
+                <div class="today">
+                    今天：{{weather}} {{temperature}} {{week}}
+                </div>
+            </div>
             <div>
                 <span>{{ msg }}</span>
                 <!-- 我们稍后在store上定义一个msg属性 -->
@@ -26,25 +33,49 @@ import Header from '@/view/header/Header';
 // ③、commit方法会自动调用mutations中对应的方法
 // ④、在mutations中更新store上的数据msg,从而Test.vue中的msg自动得到更新
 export default {
+    data() {
+        return {
+            position:"成都",
+            time:"",
+            temp:"",
+            wind_direction:"",
+            wind_strength:"",
+            weather:"",
+            temperature:"",
+            week:""
+        }
+    },
     components: {
         "v-footer": Footer,
         "v-header": Header
+    },
+    mounted(){
+        var _this = this;
+        _this.$http.get('/api/circle?cityname=成都')
+        .then(function(response) {
+            var jsonResponse = JSON.parse(response.data);
+            // console.log(jsonResponse.result['sk']);
+            // console.log(jsonResponse.result['today']);
+            _this.time = jsonResponse.result['sk'].time;
+            _this.temp = jsonResponse.result['sk'].temp;
+            _this.wind_direction = jsonResponse.result['sk'].wind_direction;
+            _this.wind_strength = jsonResponse.result['sk'].wind_strength;
+            _this.temperature = jsonResponse.result['today'].temperature;
+            _this.weather = jsonResponse.result['today'].weather;
+            _this.week = jsonResponse.result['today'].week;
+        })
+        .catch(function(error) {
+            console.log(error);
+        });
     },
     methods: {
         ...mapActions([ // 从store上绑定的action中载入需要的到此组件中
             'fun', // 我们稍后在src/store/actions.js中创建一个名为fun的方法
         ]),
         getNews() {
-            this.$http.get('http://v.juhe.cn/weather/index?format=2&cityname=%E8%8B%8F%E5%B7%9E&key=ed6db82b843a6e53a61eddac276c1ad9', {
-                        cityname: '成都'
-                }
-                ).then(function(response) {
-                    console.log(response);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        },
+
+        }
+            
     },
         computed: {
             ...mapGetters([ // 从store上绑定的getters中载入需要的到此组件中
@@ -59,5 +90,27 @@ export default {
     position: relative;
     top: 3.5rem;
     left: 0;
+}
+.weather{
+    background:-webkit-linear-gradient(#37424C, #859AAB);
+    background:linear-gradient(#37424C, #859AAB);
+    color: #fff;
+    .position{
+        padding-left: 10px;
+        span{
+            font-size: 12px;
+            margin-left:4px; 
+        }
+    }
+    .temperature{
+        font-size: 2rem;
+        text-align: center;
+    }
+    .windPower{
+        text-align: center;
+    }
+    .today{
+        text-align: center;
+    }
 }
 </style>
