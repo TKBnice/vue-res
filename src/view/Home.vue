@@ -10,11 +10,11 @@
                     <div class="article-img" ref="articleitem">
                         <div></div>
                     </div>
-                    <h3 class="article-title">你无法参与Ta的过去，但重要的是此刻Ta在你身边 ?</h3>
-                    <p class="article-text">这两天网络上展开了关于“如何避免中年油腻”的讨论。人们又列举了种种“行为规范”，劝导别人说做到了...</p>
+                    <h3 class="article-title">{{item.articleTitle}}</h3>
+                    <p class="article-text">{{item.articleText}}</p>
                     <p class="article-author">
                         <a href="#">
-                            <img src="../assets/author.jpg" alt="作者">
+                            <img :src="item.authorImg" alt="作者">
                             <span>{{item.title}}</span>
                         </a>
                         <span class="close" @click="toggle(index)">•••</span>
@@ -36,7 +36,8 @@
     </div>
 </template>
 
-<script type="text/ecmascript-6">
+ <script type="text/ecmascript-6">
+import axios from 'axios'
 import Footer from '@/view/footer/Footer'
 import Modal from '@/view/modal/Modal'
 import Search from '@/view/search/Search'
@@ -48,42 +49,46 @@ export default {
                 {
                     title: '作者1',
                     author: "111",
+                    authorImg:"",
                     path: '/home',
                     icon: 'icon-form',
                     index: 0,
                     imgUrl: "https://qnmob3.doubanio.com/img/files/file-1509460301.jpeg?imageView2/2/q/80/w/330/h/330/format/jpg",
+                    articleText:"",
+                    articleTitle:"",
                     isShow: false
                 },
                 {
                     title: '作者12',
                     path: '/video',
+                    authorImg:"",
                     icon: 'icon-process',
                     index: 1,
                     imgUrl: "https://img3.doubanio.com/view/note/sqs/public/p46290460.jpg",
+                    articleText:"",
+                    articleTitle:"",
                     isShow: false
                 },
                 {
                     title: '作者13',
                     path: '/radio',
+                    authorImg:"",
                     icon: 'icon-bussinessman',
                     index: 2,
                     imgUrl: "https://img3.doubanio.com/lpic/s29563550.jpg",
+                    articleText:"",
+                    articleTitle:"",
                     isShow: false
                 },
                 {
                     title: '作者14',
                     path: '/circle',
+                    authorImg:"",
                     icon: 'icon-wxbmingxingdianpu',
                     imgUrl: "https://qnmob3.doubanio.com/img/files/file-1509438208.jpg?imageView2/2/q/80/w/330/h/330/format/jpg",
+                    articleText:"",
+                    articleTitle:"",
                     index: 3,
-                    isShow: false
-                },
-                {
-                    title: '作者15',
-                    path: '/mine',
-                    icon: 'icon-wxbzhuye',
-                    imgUrl: "https://img3.doubanio.com/view/note/sqs/public/p46198205.jpg",
-                    index: 4,
                     isShow: false
                 }
             ],
@@ -117,10 +122,25 @@ export default {
         "v-search": Search
     },
     mounted() {
+        var _this = this;
+        axios.post('/api/home')
+        .then(function(response){
+            console.log(response);
+            for(var i=0;i<_this.list.length;i++){
+                _this.list[i].articleTitle = response.data.items1[i].title;
+                _this.list[i].articleText = response.data.items1[i].text;
+                _this.list[i].title = response.data.items2[i].authorName;
+                _this.list[i].authorImg = response.data.items2[i].src;
+            }
+            
+        })
+        .catch(function(err){
+            console.log(err);
+        });
         //列表图片
         // console.log()
-        for (var i = 0; i < this.list.length; i++) {
-            this.$refs.articleitem[i].style.backgroundImage = "url(" + this.list[i].imgUrl + ")";
+        for (var i = 0; i < _this.list.length; i++) {
+            _this.$refs.articleitem[i].style.backgroundImage = "url(" + _this.list[i].imgUrl + ")";
         }
     },
     methods: {
@@ -175,7 +195,7 @@ export default {
     margin-bottom: 0.5rem;
     position: relative;
     color: #494949;
-    background-color: #EDEDED;
+    background-color: #fff;
 }
 
 .article-item:first-child {
@@ -268,12 +288,11 @@ export default {
 }
 
 .list-nav {
-    position: relative;
-    left: 0;
-    top: 0.5rem;
+
     display: flex;
     width: 100%;
-    background-color: #fff;
+    background-color: #EDEDED;
+    padding-top:0.5rem; 
 }
 
 .list-nav p {
@@ -281,6 +300,7 @@ export default {
     font-size: 0.75rem;
     height: 3.75rem;
     text-align: center;
+    background-color: #FFF;
 }
 
 .list-nav p span {

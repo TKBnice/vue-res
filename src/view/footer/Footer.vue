@@ -2,7 +2,7 @@
     <footer class="tabbar">
         <ul class="tabbar-box">
             <li class="tabbar-item" v-for="(item,index) in list" :key="index+'li'">
-                <router-link :class="{active:item.path == $route.path}" :to="item.path">
+                <router-link :class="{active:item.path == $route.path||item.videoActive}" :to="item.path">
                     <span class="icon iconfont" :class="item.icon"></span>
                     <span class="tabbar-label">{{item.title}}</span>
                 </router-link>
@@ -15,58 +15,72 @@
 export default {
     data() {
         return {
+            
             list: [
+
                 {
                     title: '首页',
                     path: '/home',
-                    icon: 'icon-form'
+                    icon: 'icon-form',
+                    videoActive: false,
                 },
                 {
                     title: '书影音',
                     path: '/video',
-                    icon: 'icon-process'
+                    icon: 'icon-process',
+                    videoActive: false,
                 },
                 {
                     title: '广播',
                     path: '/radio',
-                    icon: 'icon-bussinessman'
+                    icon: 'icon-bussinessman',
+                    videoActive: false,
                 },
                 {
                     title: '小组',
                     path: '/circle',
-                    icon: 'icon-wxbmingxingdianpu'
+                    icon: 'icon-wxbmingxingdianpu',
+                    videoActive: false,
                 },
                 {
                     title: '我的',
                     path: '/mine',
-                    icon: 'icon-wxbzhuye'
+                    icon: 'icon-wxbzhuye',
+                    videoActive: false,
                 }
             ]
         }
     },
     mounted() {
-        var pathHash = window.location.hash.substring(1);
+
         // if(pathHash == '/video'){
 
         // }
-
-        if (pathHash == '/video') {
-            // console.log(this.$route.path)
-            this.$router.push({path:'/movie'})
-        }
+        // console.log(pathHash)
+        //     if (pathHash === '/video') {
+        //         console.log(this.$route.path)
+        //         this.videoActive=true;
+        //         console.log(this.videoActive)
+        //     }
     },
     methods: {
+        getRouter() {
+            var pathHash = window.location.hash.substring(1,7);
+            console.log(pathHash);
+            if(pathHash === '/video'){
 
+                this.list[1].videoActive=true;
+            }
+            
+        }
     },
     watch: {
-        // $router() {
+             '$route':'getRouter'
             
-        //     console.log(pathHash)
-        //     if (pathHash == '/video' || '/teleplay' || '/movie' || '/read' || '/city' || '/music' || '/market') {
-        //         console.log(this.$route.path)
-        //         this.list[1].path = this.$route.path;
-        //     }
-        // }
+            // if (pathHash == '/video' || '/teleplay' || '/movie' || '/read' || '/city' || '/music' || '/market') {
+            //     console.log(this.$route.path)
+            //     this.list[1].path = this.$route.path;
+            // }
     }
 }
 </script>

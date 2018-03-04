@@ -13,7 +13,7 @@
                 <li class="r-item" v-show="item.isClose" v-for="(item,index) in list" :key="'list-'+index">
                     <div class="item-top">
                         <div class="author-img">
-                            <div class="pd100"></div>
+                            <img class="pd100" :src="item.img"/>
                         </div>
 
                         <div class="author">
@@ -46,9 +46,9 @@
 </template>
 
 <script>
-import Footer from '@/view/footer/Footer';
-import Header from '@/view/header/Header';
-
+import axios from 'axios'
+import Footer from '@/view/footer/Footer'
+import Header from '@/view/header/Header'
 
 export default {
     data() {
@@ -61,7 +61,8 @@ export default {
                     fans_count: 66,
                     item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
                     fans_zan: 16,
-                    fans_liuyan: 120
+                    fans_liuyan: 120,
+                    img:'../assets/author.jpg'
                 },
                 {
                     isClose: true,
@@ -69,7 +70,8 @@ export default {
                     fans_count: 636,
                     item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
                     fans_zan: 6,
-                    fans_liuyan: 210
+                    fans_liuyan: 210,
+                    img:'../assets/author.jpg'
                 },
                 {
                     isClose: true,
@@ -77,7 +79,8 @@ export default {
                     fans_count: 266,
                     item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
                     fans_zan: 86,
-                    fans_liuyan: 202
+                    fans_liuyan: 202,
+                    img:'../assets/author.jpg'
                 },
                 {
                     isClose: true,
@@ -85,7 +88,8 @@ export default {
                     fans_count: 166,
                     item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
                     fans_zan: 56,
-                    fans_liuyan: 310
+                    fans_liuyan: 310,
+                    img:'../assets/author.jpg'
                 },
                 {
                     isClose: true,
@@ -93,7 +97,8 @@ export default {
                     fans_count: 676,
                     item_text: '走过春的田野，趟过夏的激流，来到秋天就是安静祥和的世界。秋天，虽没有玫瑰的芳香，却有秋菊的淡雅，没有繁花似锦，却有硕果累累。',
                     fans_zan: 96,
-                    fans_liuyan: 200
+                    fans_liuyan: 200,
+                    img:'../assets/author.jpg'
                 },
             ]
         }
@@ -101,6 +106,21 @@ export default {
     components: {
         "v-footer": Footer,
         "v-header": Header
+    },
+    mounted(){
+        var _this = this;
+        axios.post('/api/radio')
+        .then(function(response){
+            console.log(response);
+            for(var i=0;i<_this.list.length;i++){
+                _this.list[i].img = response.data[i].href
+                _this.list[i].author_name = response.data[i].text
+            }
+            
+        })
+        .catch(function(err){
+            console.log(err);
+        });
     },
     methods: {
         closeItem(index) {
@@ -152,17 +172,13 @@ export default {
                 overflow: hidden;
                 padding-bottom: 0.5rem;
                 .author-img {
-                    width: 3rem;
-                    height: 3rem;
                     float: left;
-                    background-image: url('../assets/author.jpg');
-                    background-size: 1.875rem 30px;
-                    background-position: center;
                     border-radius: 50%;
                     margin: 1rem 1rem 0 1rem;
-
-                    div {
-                        padding-top: 100%;
+                    img {
+                        width: 3rem;
+                        height: 3rem;
+                        border-radius:2rem;
                     }
                 }
                 .author {

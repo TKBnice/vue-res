@@ -4,6 +4,7 @@ import Video from '@/view/Video'
 import Radio from '@/view/Radio'
 import Circle from '@/view/Circle' // vuex引入circle组件
 import Mine from '@/view/Mine'
+import Test from '@/view/test'
 import Searchpage from '@/view/Searchpage'
 import App from '@/App'
 // Video子组件
@@ -33,27 +34,27 @@ const router = [
                 component: Video,
                 children: [
                     {
-                        path: '/movie',
+                        path: '/video/movie',
                         component:Movie
                     },
                     {
-                        path: '/teleplay',
+                        path: '/video/teleplay',
                         component:Teleplay
                     },
                     {
-                        path: '/city',
+                        path: '/video/city',
                         component:City
                     },
                     {
-                        path: '/read',
+                        path: '/video/read',
                         component:Read
                     },
                     {
-                        path: '/market',
+                        path: '/video/market',
                         component:Market
                     },
                     {
-                        path: '/music',
+                        path: '/video/music',
                         component:Music
                     }
                 ]
@@ -73,6 +74,10 @@ const router = [
             {
                 path: '/login',
                 component: Login
+            },
+            {
+                path: '/test',
+                component: Test
             },
             {
                 path: '/searchpage',

@@ -35,28 +35,28 @@ export default {
             list_nav: [
                 {
                     title: '电影',
-                    path: '/movie'
+                    path: '/video/movie'
                 },
                 {
                     title: '电视',
-                    path: '/teleplay'
+                    path: '/video/teleplay'
                 },
                 {
                     title: '读书',
-                    path: '/read'
+                    path: '/video/read'
                 },
                 {
                     title: '同城',
-                    path: '/city'
+                    path: '/video/city'
                 },
                 {
                     title: '音乐',
-                    path: '/music'
+                    path: '/video/music'
 
                 },
                 {
                     title: '集市',
-                    path: '/market'
+                    path: '/video/market'
                 }
             ]
         }
@@ -97,13 +97,7 @@ export default {
 
     },
     watch: {
-        $router() {
-            // console.log(getPathHash())
-            if (getPathHash() == '/video') {
-                this.$router.push({ path: '/movie' })
-            }
 
-        }
     }
 }
 </script>

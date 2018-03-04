@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+
 import { mapGetters, mapActions } from 'vuex';
 
 // 这个例子的用意是：
